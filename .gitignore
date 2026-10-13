@@ -12,6 +12,8 @@ dist/
 server.log
 logs/
 coverage/
+*.tmp
+nul
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
