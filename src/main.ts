@@ -1,5 +1,6 @@
-import { NestFactory } from '@nestjs/core';
+
 import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -12,7 +13,6 @@ async function bootstrap() {
 
   app.enableCors();
   app.enableShutdownHooks();
-
   app.getHttpAdapter().get('/', (req, res) => res.send({ message: 'Server Running Successfully!' }));
 
   await app.listen(port, '0.0.0.0');

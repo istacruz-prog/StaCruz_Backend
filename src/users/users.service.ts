@@ -1,4 +1,4 @@
-import {
+﻿import {
   BadRequestException,
   Injectable,
   NotFoundException,
@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { hash } from 'bcryptjs';
 import { Repository } from 'typeorm';
+
 import { User } from './user.entity';
 
 @Injectable()
@@ -21,10 +22,12 @@ export class UsersService {
     if (!data.password) {
       throw new BadRequestException('A password is required');
     }
+
     const user = await this.userRepository.save({
       ...data,
       password: await hash(data.password, UsersService.passwordSaltRounds),
     });
+
     return this.withoutPassword(user);
   }
 
@@ -53,6 +56,7 @@ export class UsersService {
     if (!existingUser) {
       throw new NotFoundException(`User ${id} not found`);
     }
+
     const user = await this.userRepository.save(existingUser);
     return this.withoutPassword(user);
   }

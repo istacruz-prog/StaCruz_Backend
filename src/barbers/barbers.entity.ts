@@ -1,11 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+﻿import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('barbers')
 export class Barber {
   @PrimaryGeneratedColumn()
   barber_id!: number;
 
-  @Column()
+  @Column({ unique: true })
   barber_code!: string;
 
   @Column()
@@ -14,6 +14,6 @@ export class Barber {
   @Column()
   phone_number!: string;
 
-  @Column()
+  @Column({ default: true })
   is_active!: boolean;
 }

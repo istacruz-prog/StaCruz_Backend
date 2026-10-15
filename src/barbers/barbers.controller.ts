@@ -1,15 +1,16 @@
-import {
+﻿import {
+  Body,
   Controller,
-  Get,
-  Post,
-  Put,
   Delete,
+  Get,
   Param,
   ParseIntPipe,
-  Body,
+  Post,
+  Put,
 } from '@nestjs/common';
-import { BarbersService } from './barbers.service';
+
 import { Barber } from './barbers.entity';
+import { BarbersService } from './barbers.service';
 
 @Controller('barbers')
 export class BarbersController {

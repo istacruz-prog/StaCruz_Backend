@@ -1,13 +1,13 @@
-import { Module } from '@nestjs/common';
+﻿import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { UsersModule } from './users/users.module';
-import { BarbersModule } from './barbers/barbers.module';
-import { ServicesModule } from './services/services.module';
-import { ClientsModule } from './clients/clients.module';
 import { AppointmentsModule } from './appointments/appointments.module';
+import { BarbersModule } from './barbers/barbers.module';
+import { ClientsModule } from './clients/clients.module';
 import { PaymentsModule } from './payments/payments.module';
+import { ServicesModule } from './services/services.module';
+import { UsersModule } from './users/users.module';
 
 function getDatabasePort(config: ConfigService): number {
   const port = Number(config.getOrThrow('DB_PORT'));

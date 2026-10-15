@@ -1,13 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+﻿import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { Barber } from './barbers.entity';
 
 @Injectable()
 export class BarbersService {
   constructor(
     @InjectRepository(Barber)
-    private barbersRepo: Repository<Barber>,
+    private readonly barbersRepo: Repository<Barber>,
   ) {}
 
   findAll() {

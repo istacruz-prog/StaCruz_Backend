@@ -1,11 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+﻿import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('services')
 export class Service {
   @PrimaryGeneratedColumn()
   service_id!: number;
 
-  @Column()
+  @Column({ unique: true })
   service_code!: string;
 
   @Column()
