@@ -7,6 +7,7 @@
   ParseIntPipe,
   Patch,
   Post,
+  Put,
 } from '@nestjs/common';
 
 import { User } from './user.entity';
@@ -33,6 +34,14 @@ export class UsersController {
 
   @Patch(':id')
   update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: Partial<User>,
+  ) {
+    return this.usersService.update(id, body);
+  }
+
+  @Put(':id')
+  replace(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: Partial<User>,
   ) {
