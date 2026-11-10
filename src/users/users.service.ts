@@ -1,5 +1,6 @@
 ﻿import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -19,16 +20,30 @@ export class UsersService {
   ) {}
 
   async create(data: Partial<User>) {
-    if (!data.password) {
-      throw new BadRequestException('A password is required');
+    const username = data.username?.trim();
+    if (!username || !data.password) {
+      throw new BadRequestException('A username and password are required');
+    }
+
+    if (await this.userRepository.findOneBy({ username })) {
+      throw new ConflictException('Username is already taken');
     }
 
     const user = await this.userRepository.save({
       ...data,
+      username,
       password: await hash(data.password, UsersService.passwordSaltRounds),
     });
 
     return this.withoutPassword(user);
+  }
+
+  findByUsernameWithPassword(username: string) {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password')
+      .where('user.username = :username', { username })
+      .getOne();
   }
 
   findAll() {

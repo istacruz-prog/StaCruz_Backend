@@ -19,6 +19,8 @@ NestJS REST API backed by MySQL and TypeORM. Requests and responses use JSON.
 3. Copy `.env.example` to `.env` and set `DB_HOST`, `DB_PORT`, `DB_USER`, and
    `DB_PASSWORD` to match your local MySQL server. Set
    `DB_NAME=barberdb_dev` and `DB_SYNCHRONIZE=true` for local development.
+   Set `JWT_SECRET` to a long, randomly generated secret; do not use the example
+   placeholder in a deployed environment.
 
    With synchronization enabled, TypeORM creates the tables from the entities
    when the app starts. Only use this with a disposable development database;
@@ -31,14 +33,14 @@ NestJS REST API backed by MySQL and TypeORM. Requests and responses use JSON.
    npm run start:dev
    ```
 
-   The default address is `http://localhost:3000`. The root health check is
-   `GET http://localhost:3000/`. If the port is occupied, stop the other server
+   The default address is `http://localhost:3001`. The root health check is
+   `GET http://localhost:3001/`. If the port is occupied, stop the other server
    or change `PORT` in `.env`.
 
 ## Use with Postman
 
 Set the request header `Content-Type: application/json` for requests with a
-body. Start with `GET http://localhost:3000/clients` to verify the database
+body. Start with `GET http://localhost:3001/clients` to verify the database
 connection and tables. A successful list request returns JSON, usually `[]`
 for an empty table.
 
@@ -62,6 +64,16 @@ All resource routes:
 | Clients | `GET, POST /clients`; `GET, PUT, DELETE /clients/:id` |
 | Appointments | `GET, POST /appointments`; `GET, PUT, DELETE /appointments/:id` |
 | Payments | `GET, POST /payments`; `GET, PUT, DELETE /payments/:id` |
+
+Authentication routes:
+
+| Method | URL | JSON body |
+| --- | --- | --- |
+| `POST` | `/auth/register` | `{"username":"alex","password":"your-password"}` |
+| `POST` | `/auth/login` | `{"username":"alex","password":"your-password"}` |
+
+Registration returns the created user without its password. Login returns an
+`accessToken` signed with `JWT_SECRET`.
 
 The `:id` value is the numeric primary key returned when an item is created.
 Missing records return `404 Not Found`. The API does not create MySQL itself:

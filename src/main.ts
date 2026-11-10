@@ -6,7 +6,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
-  const port = Number(config.get('PORT', 3000));
+  const port = Number(config.get('PORT', 3001));
   if (!Number.isInteger(port) || port < 1 || port > 65535) {
     throw new Error('PORT must be a valid TCP port');
   }

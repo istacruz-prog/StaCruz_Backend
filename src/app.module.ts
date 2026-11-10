@@ -2,6 +2,7 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { AuthModule } from './auth/auth.module';
 import { AppointmentsModule } from './appointments/appointments.module';
 import { BarbersModule } from './barbers/barbers.module';
 import { ClientsModule } from './clients/clients.module';
@@ -35,6 +36,7 @@ function getDatabasePort(config: ConfigService): number {
       }),
     }),
 
+    AuthModule,
     UsersModule,
     BarbersModule,
     ServicesModule,
